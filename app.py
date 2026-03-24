@@ -25,7 +25,7 @@ def salvar_recomendacao(nome, interesses, escolaridade, recomendacao):
     df_final = pd.concat([df, new_entry], ignore_index=True)
     df_final.to_csv(CSV_FILE, index=False, encoding='utf-8')
 
-# --- CONFIGURAÇÃO DA PÁGINA (Estado da Sessão) ---
+# --- CONFIGURAÇÃO DA PÁGINA ---
 if 'page' not in st.session_state:
     st.session_state.page = 'test' 
 if 'recommended_careers' not in st.session_state:
@@ -35,10 +35,10 @@ if 'user_name' not in st.session_state:
 
 st.set_page_config(page_title="AprendaJá PRO - Seu Caminho", page_icon="🎯", layout="centered")
 
-# --- INJEÇÃO DE CSS PERSONALIZADO (A Mágica do Design) ---
+# --- INJEÇÃO DE CSS PERSONALIZADO ---
 st.markdown("""
 <style>
-    /* Estilo para os Cards de Teste e Resultado */
+    /* Estilo para os Cards de Resultado */
     .stContainer {
         border: 2px solid #A32E2E;
         border-radius: 15px;
@@ -50,7 +50,7 @@ st.markdown("""
     /* Estilo para Títulos dentro dos Cards */
     .career-title {
         color: #FFFFFF !important;
-        font-size: 24px !important;
+        font-size: 22px !important;
         font-weight: bold !important;
         margin-bottom: 5px !important;
     }
@@ -59,7 +59,7 @@ st.markdown("""
     .career-description {
         color: #DEDEDE !important;
         font-size: 15px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         line-height: 1.4;
     }
 
@@ -79,18 +79,11 @@ st.markdown("""
         border: none;
         padding: 10px 20px;
         font-weight: bold;
+        width: 100%; /* Faz o botão ocupar a largura toda no celular */
     }
     .stButton > button:hover {
         background-color: #7A2222;
         color: white !important;
-    }
-    
-    /* Centralizar ícones nas colunas de interesse */
-    .interest-icon {
-        font-size: 50px;
-        text-align: center;
-        display: block;
-        margin-bottom: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -126,25 +119,20 @@ def get_career_recommendation(selected_interests, selected_education):
 def show_profile_test_page():
     st.markdown("## AprendaJá **PRO** 🎯")
     st.divider()
-    st.markdown("## Perfil Profissional: Nos ajude a conhecer você melhor.")
+    st.markdown("### Nos ajude a conhecer você melhor.")
     
     name = st.text_input("Qual seu nome?")
     
     st.write("Quais são seus principais interesses?")
-    int_col1, int_col2, int_col3, int_col4 = st.columns(4)
     
-    with int_col1:
-        st.markdown("<span class='interest-icon'>💻</span>", unsafe_allow_html=True)
-        tech_check = st.checkbox("Tecnologia")
-    with int_col2:
-        st.markdown("<span class='interest-icon'>🤝</span>", unsafe_allow_html=True)
-        biz_check = st.checkbox("Negócios")
-    with int_col3:
-        st.markdown("<span class='interest-icon'>🩺</span>", unsafe_allow_html=True)
-        health_check = st.checkbox("Saúde")
-    with int_col4:
-        st.markdown("<span class='interest-icon'>🎨</span>", unsafe_allow_html=True)
-        design_check = st.checkbox("Artes & Design")
+    # Novo Layout responsivo para celular (Grid 2x2 com ícones embutidos)
+    col1, col2 = st.columns(2)
+    with col1:
+        tech_check = st.checkbox("💻 Tecnologia")
+        health_check = st.checkbox("🩺 Saúde")
+    with col2:
+        biz_check = st.checkbox("🤝 Negócios")
+        design_check = st.checkbox("🎨 Artes & Design")
     
     selected_interests = []
     if tech_check: selected_interests.append("Tecnologia")
@@ -158,17 +146,18 @@ def show_profile_test_page():
         "🎓 Ensino Superior": "Ensino Superior",
         "🏅 Pós-Graduação": "Pós-Graduação"
     }
-    selected_education_label = st.radio("Escolha uma opção:", list(education_options.keys()))
+    selected_education_label = st.radio("Escolha uma opção:", list(education_options.keys()), label_visibility="collapsed")
     selected_education = education_options[selected_education_label]
+    
+    st.write("") # Espaço em branco para respirar o layout
     
     # Validação do formulário
     if st.button("Continuar"):
         if not name.strip():
             st.warning("⚠️ Por favor, digite seu nome antes de continuar.")
         elif len(selected_interests) == 0:
-            st.warning("⚠️ Por favor, escolha pelo menos um interesse (Tecnologia, Negócios, Saúde ou Artes).")
+            st.warning("⚠️ Por favor, escolha pelo menos um interesse.")
         else:
-            # Se passou na validação, avança!
             st.session_state.user_name = name
             st.session_state.recommended_careers = get_career_recommendation(selected_interests, selected_education)
             
@@ -176,55 +165,9 @@ def show_profile_test_page():
                  salvar_recomendacao(name, selected_interests, selected_education, st.session_state.recommended_careers[0]['title'])
                  
             st.session_state.page = 'results'
-            st.rerun() # Força a tela a atualizar imediatamente
+            st.rerun()
 
 def show_results_page():
     st.markdown("## AprendaJá **PRO** 🎯")
     
-    # Removido o <
-    if st.button("Voltar para o Teste"): 
-        st.session_state.page = 'test'
-        st.rerun()
-        
-    st.title("Suas Recomendações de Carreira")
-    st.subheader(f"Escolhas alinhadas ao seu perfil, {st.session_state.user_name}!")
-    
-    st.divider()
-
-    for i in range(0, len(st.session_state.recommended_careers), 2):
-        card_col1, card_col2 = st.columns(2)
-        
-        if i < len(st.session_state.recommended_careers):
-            career = st.session_state.recommended_careers[i]
-            with card_col1.container():
-                inner_col1, inner_col2 = st.columns([1, 2])
-                with inner_col1:
-                    st.image(career['image'], use_column_width=True)
-                with inner_col2:
-                    st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
-                    st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                    st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
-                    # Botão Saiba Mais removido daqui
-
-        if i+1 < len(st.session_state.recommended_careers):
-            career = st.session_state.recommended_careers[i+1]
-            with card_col2.container():
-                inner_col1, inner_col2 = st.columns([1, 2])
-                with inner_col1:
-                    st.image(career['image'], use_column_width=True)
-                with inner_col2:
-                    st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
-                    st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                    st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
-                    # Botão Saiba Mais removido daqui
-
-# --- FLUXO PRINCIPAL DO APP ---
-if st.session_state.page == 'test':
-    show_profile_test_page()
-elif st.session_state.page == 'results':
-    show_results_page()
-
-st.divider()
-if st.checkbox("⚙️ Modo Administrador: Ver Banco de Dados (CSV)"):
-    df = carregar_dados()
-    st.dataframe(df)
+    if st.button("Voltar
