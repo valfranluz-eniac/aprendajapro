@@ -170,4 +170,42 @@ def show_profile_test_page():
 def show_results_page():
     st.markdown("## AprendaJá **PRO** 🎯")
     
-    if st.button("Voltar
+    if st.button("Voltar para o Teste"): 
+        st.session_state.page = 'test'
+        st.rerun()
+        
+    st.title("Suas Recomendações")
+    st.subheader(f"Escolhas alinhadas ao seu perfil, {st.session_state.user_name}!")
+    
+    st.divider()
+
+    for i in range(0, len(st.session_state.recommended_careers), 2):
+        card_col1, card_col2 = st.columns(2)
+        
+        if i < len(st.session_state.recommended_careers):
+            career = st.session_state.recommended_careers[i]
+            with card_col1.container():
+                # O layout no celular empilha a imagem e o texto, fica perfeito!
+                st.image(career['image'], use_column_width=True)
+                st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
+
+        if i+1 < len(st.session_state.recommended_careers):
+            career = st.session_state.recommended_careers[i+1]
+            with card_col2.container():
+                st.image(career['image'], use_column_width=True)
+                st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
+
+# --- FLUXO PRINCIPAL DO APP ---
+if st.session_state.page == 'test':
+    show_profile_test_page()
+elif st.session_state.page == 'results':
+    show_results_page()
+
+st.divider()
+if st.checkbox("⚙️ Modo Administrador: Ver Banco de Dados (CSV)"):
+    df = carregar_dados()
+    st.dataframe(df)
