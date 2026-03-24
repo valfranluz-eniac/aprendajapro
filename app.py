@@ -43,13 +43,13 @@ st.markdown("""
         border: 2px solid #A32E2E;
         border-radius: 15px;
         padding: 20px;
-        background-color: #2D2D31;
+        background-color: #2D2D31; /* Fundo escuro do card sempre fixo */
         margin-bottom: 20px;
     }
     
     /* Estilo para Títulos dentro dos Cards */
     .career-title {
-        color: #FFFFFF;
+        color: #FFFFFF !important; /* Texto SEMPRE branco no card */
         font-size: 24px !important;
         font-weight: bold !important;
         margin-bottom: 10px !important;
@@ -57,7 +57,7 @@ st.markdown("""
     
     /* Estilo para Descrições */
     .career-description {
-        color: #DEDEDE;
+        color: #FFFFFF !important; /* Texto SEMPRE branco no card */
         font-size: 16px;
         margin-bottom: 15px;
     }
@@ -65,7 +65,7 @@ st.markdown("""
     /* Estilo para os botões de Saiba Mais (Vinho) */
     .stButton > button {
         background-color: #A32E2E;
-        color: white;
+        color: white !important;
         border-radius: 20px;
         border: none;
         padding: 10px 20px;
@@ -73,7 +73,7 @@ st.markdown("""
     }
     .stButton > button:hover {
         background-color: #7A2222;
-        color: white;
+        color: white !important;
     }
     
     /* Centralizar ícones nas colunas de interesse */
@@ -86,20 +86,26 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASE DE DADOS DE CARREIRAS (O Especialista Simbólico) ---
+# --- BASE DE DADOS DE CARREIRAS (Com links de imagem REAIS e PÚBLICOS) ---
 career_database = [
-    {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Programador de Softwares', 'description': 'Crie aplicativos e sistemas de alta tecnologia.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/codificacao.png'}},
-    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Dados Júnior', 'description': 'Comece na área de dados transformando números em decisões.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/analise-de-dados.png'}},
-    {'interests': ['Negócios'], 'education': ['Ensino Superior'], 'career': {'title': 'Gerente de Produto (PM)', 'description': 'Launch and manage your own product or business.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/gerenciamento-de-produtos.png'}},
-    {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'UX/UI Designer Sênior', 'description': 'Projete interfaces digitais intuitivas e inovadoras.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/design-ux-ui.png'}},
-    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Enfermeiro de UTI', 'description': 'Atue em uma área médica crítica e de alta demanda.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/enfermeiro.png'}},
-    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Médico Especialista', 'description': 'Torne-se referência em sua área médica.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/medico.png'}}
+    # Tecnologia - Superior/Pós
+    {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Programador de Softwares', 'description': 'Crie aplicativos e sistemas de alta tecnologia.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop'}},
+    # Tecnologia - Médio
+    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Dados Júnior', 'description': 'Comece na área de dados transformando números em decisões.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop'}},
+    # Negócios - Superior
+    {'interests': ['Negócios'], 'education': ['Ensino Superior'], 'career': {'title': 'Gerente de Produto (PM)', 'description': 'Lance e gerencie seu próprio produto ou negócio.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=400&auto=format&fit=crop'}},
+    # Artes - Superior/Pós
+    {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'UX/UI Designer Sênior', 'description': 'Projete interfaces digitais intuitivas e inovadoras.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop'}},
+    # Saúde - Superior
+    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Enfermeiro de UTI', 'description': 'Atue em uma área médica crítica e de alta demanda.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=400&auto=format&fit=crop'}},
+    # Saúde - Pós
+    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Médico Especialista', 'description': 'Torne-se referência em sua área médica.', 'image': 'https://images.unsplash.com/photo-1584447128309-b66b7a14890c?q=80&w=400&auto=format&fit=crop'}}
 ]
 
 # Função que gera a recomendação com base nas regras do especialista
 def get_career_recommendation(selected_interests, selected_education):
     if not selected_interests or not selected_education:
-        return [{'title': 'Orientador de Carreiras Geral', 'description': 'Poxa, você não escolheu nada!', 'image': 'https://streamlit-career-images.s3.amazonaws.com/orientador-de-carreira.png'}]
+        return [{'title': 'Orientador de Carreiras Geral', 'description': 'Poxa, você não escolheu nada!', 'image': 'https://images.unsplash.com/photo-1593062096033-9a26b09dd705?q=80&w=400&auto=format&fit=crop'}]
         
     possible_careers = []
     # Percorre o banco de dados de regras
@@ -112,14 +118,13 @@ def get_career_recommendation(selected_interests, selected_education):
     if possible_careers:
         return possible_careers # Devolve a lista completa de correspondências
     else:
-        return [{'title': 'Empreendedor Geral', 'description': 'Um perfil versátil! Vamos conversar mais sobre sua trilha.', 'image': 'https://streamlit-career-images.s3.amazonaws.com/empreendedor.png'}]
+        return [{'title': 'Empreendedor Geral', 'description': 'Um perfil versátil! Vamos conversar mais sobre sua trilha.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400&auto=format&fit=crop'}]
 
 # --- FUNÇÕES DE PÁGINA (Réplicas do Design) ---
 
 def show_profile_test_page():
-    # Navegação e Título (Design Réplica)
+    # Navegação e Título
     st.markdown("## AprendaJá **PRO** 🎯")
-    st.markdown("<h3 style='color: #888;'>Home > <span style='color: #FFFFFF;'>Teste de Perfil</span> > Recomendações</h3>", unsafe_allow_html=True)
     st.divider()
     st.markdown("## Perfil Profissional: Nos ajude a conhecer você melhor.")
     
@@ -127,11 +132,10 @@ def show_profile_test_page():
     name = st.text_input("Qual seu nome?")
     
     st.write("Quais são seus principais interesses?")
-    # Layout de Colunas para os Interesses (Design Réplica - simulação dos branching lines)
-    # Usamos st.columns para criar o grid de 4 colunas
+    # Layout de Colunas para os Interesses (Grid 4x1)
     int_col1, int_col2, int_col3, int_col4 = st.columns(4)
     
-    # Usaremos st.container() dentro das colunas para simular os cards com borda
+    # Cards de Interesse (simulando bordas)
     with int_col1:
         st.markdown("<span class='interest-icon'>💻</span>", unsafe_allow_html=True)
         tech_check = st.checkbox("Tecnologia")
@@ -152,7 +156,6 @@ def show_profile_test_page():
     if design_check: selected_interests.append("Artes & Design")
         
     st.write("Qual seu nível de escolaridade?")
-    # Usaremos st.radio com ícones nas labels para o design
     education_options = {
         "📖 Ensino Médio": "Ensino Médio",
         "🎓 Ensino Superior": "Ensino Superior",
@@ -182,7 +185,6 @@ def show_results_page():
     st.divider()
 
     # Gerar os cards com base nas recomendações do especialista
-    # Nós usamos o loop para criar o grid de 2x2 cards de design
     for i in range(0, len(st.session_state.recommended_careers), 2):
         # Cria uma linha de 2 colunas
         card_col1, card_col2 = st.columns(2)
@@ -190,30 +192,26 @@ def show_results_page():
         # Primeiro Card da linha
         if i < len(st.session_state.recommended_careers):
             career = st.session_state.recommended_careers[i]
-            # Usamos st.container() para aplicar a borda vinho do design
             with card_col1.container():
-                # Layout interno do card (1 parte para imagem, 2 para texto)
-                with st.container(): # Novo container interno para alinhar
-                    inner_col1, inner_col2 = st.columns([1, 2])
-                    with inner_col1:
-                        st.image(career['image'], width=100)
-                    with inner_col2:
-                        st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
-                        st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                        st.button(f"Saiba Mais", key=f"know_more_{i}")
+                inner_col1, inner_col2 = st.columns([1, 2])
+                with inner_col1:
+                    st.image(career['image'], width=100)
+                with inner_col2:
+                    st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
+                    st.button(f"Saiba Mais", key=f"know_more_{i}")
 
         # Segundo Card da linha (se houver)
         if i+1 < len(st.session_state.recommended_careers):
             career = st.session_state.recommended_careers[i+1]
             with card_col2.container():
-                with st.container():
-                    inner_col1, inner_col2 = st.columns([1, 2])
-                    with inner_col1:
-                        st.image(career['image'], width=100)
-                    with inner_col2:
-                        st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
-                        st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                        st.button(f"Saiba Mais", key=f"know_more_{i+1}")
+                inner_col1, inner_col2 = st.columns([1, 2])
+                with inner_col1:
+                    st.image(career['image'], width=100)
+                with inner_col2:
+                    st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
+                    st.button(f"Saiba Mais", key=f"know_more_{i+1}")
 
 # --- FLUXO PRINCIPAL DO APP ---
 if st.session_state.page == 'test':
