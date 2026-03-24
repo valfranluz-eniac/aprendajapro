@@ -37,7 +37,7 @@ if 'user_name' not in st.session_state:
 
 st.set_page_config(page_title="AprendaJá PRO", page_icon="🚀", layout="centered")
 
-# --- INJEÇÃO DE CSS PERSONALIZADO (CORREÇÃO DE CENTRALIZAÇÃO) ---
+# --- INJEÇÃO DE CSS PERSONALIZADO (A SOLUÇÃO DE CENTRALIZAÇÃO) ---
 st.markdown("""
 <style>
     /* FUNDO E APP GLOBAL */
@@ -58,7 +58,7 @@ st.markdown("""
     .test-banner { background: linear-gradient(180deg, #D6EAF8, #EBF5FB); color: #1A5276; text-align: center; padding: 15px; border-radius: 12px; margin-bottom: 25px; }
 
     /* --- SOLUÇÃO DEFINITIVA DE CENTRALIZAÇÃO --- */
-    /* Força o container do Streamlit a centralizar o bloco do botão */
+    /* Este seletor ataca o container 'pai' que o Streamlit gera e que costuma travar à esquerda */
     [data-testid="stVerticalBlock"] > div:has(div.stButton) {
         display: flex !important;
         justify-content: center !important;
@@ -82,7 +82,8 @@ st.markdown("""
         box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4) !important;
         transition: transform 0.2s !important;
         width: auto !important;
-        min-width: 280px !important; /* Estilo pílula larga */
+        min-width: 280px !important; /* Estilo pílula larga como nas imagens */
+        margin-top: 10px !important;
     }
     
     div.stButton > button:hover {
@@ -105,14 +106,6 @@ st.markdown("""
     .rec-card { background: white; border-radius: 15px; padding: 15px; box-shadow: 0px 4px 15px rgba(0,0,0,0.06); margin-bottom: 20px; display: flex; align-items: center; }
     .rec-card-img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; margin-right: 15px; }
     .rec-card-title { color: #1A5276; font-size: 17px; font-weight: 800; }
-
-    /* FOOTER NAV */
-    .footer-nav-container { display: flex; justify-content: space-between; margin-top: 30px; border-top: 2px solid #EBF5FB; padding: 20px 0; }
-    .footer-nav-item { text-align: center; width: 32%; }
-    .footer-nav-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; margin: 0 auto 8px auto; }
-    .icon-green { background: linear-gradient(180deg, #48C9B0, #17A589); }
-    .icon-orange { background: linear-gradient(180deg, #F39C12, #D35400); }
-    .icon-blue { background: linear-gradient(180deg, #2980B9, #1A5276); }
 </style>
 """, unsafe_allow_html=True)
 
@@ -148,16 +141,24 @@ def show_profile_test_page():
     st.markdown("<div class='test-header-title'>Teste de Perfil Profissional</div>", unsafe_allow_html=True)
     st.markdown("<div class='question-title'>Qual o seu nome?</div>", unsafe_allow_html=True)
     name = st.text_input("", placeholder="Digite seu nome...", label_visibility="collapsed")
+    
     st.markdown("<div class='question-title'>Interesses?</div>", unsafe_allow_html=True)
     t = st.checkbox("Tecnologia")
     a = st.checkbox("Artes & Design")
+    
     st.markdown("<div class='question-title'>Escolaridade?</div>", unsafe_allow_html=True)
     edu = st.radio("", ["Ensino Médio", "Ensino Superior"], label_visibility="collapsed")
     
     if st.button("Continuar"):
         if name:
             st.session_state.user_name = name
-            st.session_state.recommended_careers = get_career_recommendation(["Tecnologia" if t else "Artes & Design"], edu)
+            selected = []
+            if t: selected.append("Tecnologia")
+            if a: selected.append("Artes & Design")
+            st.session_state.recommended_careers = get_career_recommendation(selected, edu)
+            # Salvando no CSV
+            if st.session_state.recommended_careers:
+                salvar_recomendacao(name, selected, edu, st.session_state.recommended_careers[0]['title'])
             st.session_state.page = 'results'
             st.rerun()
 
