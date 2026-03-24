@@ -196,7 +196,7 @@ career_database = [
 
 def get_career_recommendation(selected_interests, selected_education):
     matches = [c['career'] for c in career_database if any(i in c['interests'] for i in selected_interests) and selected_education in c['education']]
-    return matches if matches else [{'title': 'Empreendedor Digital', 'description': 'Gestão de Novos Negócios', 'reason': 'Perfil versátil e inovador.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400'}]
+    return matches if matches else [{'title': 'Empreendedor Digital', 'description': 'Gestão de Novos Negócios', 'reason': 'Perfil versátil e inovador.', 'image': 'https://cdn.pixabay.com/photo/2020/01/20/11/51/woman-4780153_1280.jpg'}]
 
 # --- TELA 1: LANDING PAGE ---
 def show_landing_page():
