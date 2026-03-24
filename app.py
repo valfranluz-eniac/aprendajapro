@@ -6,7 +6,6 @@ import os
 CSV_FILE = "cadastros_recomendacoes.csv"
 
 def carregar_dados():
-    # Tenta carregar os dados. Se o arquivo estiver corrompido ou vazio, o try/except garante que um novo banco de dados seja criado.
     if os.path.exists(CSV_FILE):
         try:
             return pd.read_csv(CSV_FILE, encoding='utf-8')
@@ -28,116 +27,251 @@ def salvar_recomendacao(nome, interesses, escolaridade, recomendacao):
 
 # --- CONFIGURAÇÃO DA PÁGINA ---
 if 'page' not in st.session_state:
-    st.session_state.page = 'test' 
+    st.session_state.page = 'landing' 
 if 'recommended_careers' not in st.session_state:
     st.session_state.recommended_careers = []
 if 'user_name' not in st.session_state:
     st.session_state.user_name = ""
 
-st.set_page_config(page_title="AprendaJá PRO - Seu Caminho", page_icon="🎯", layout="centered")
+st.set_page_config(page_title="AprendaJá PRO", page_icon="🚀", layout="centered")
 
-# --- INJEÇÃO DE CSS PERSONALIZADO (Cores do Logo e Design Responsivo) ---
+# --- INJEÇÃO DE CSS PERSONALIZADO (Design System Completo) ---
 st.markdown("""
 <style>
-    /* Estilo para os Cards de Resultado - Borda Laranja do Logo */
-    .stContainer {
-        border: 2px solid #D35400;
-        border-radius: 15px;
-        padding: 20px;
-        background-color: #2D2D31;
+    /* RESET BÁSICO E CORES DO TEMA GLOBAL */
+    .stApp {
+        background-color: #F4F9FD; 
+    }
+    
+    /* CABEÇALHO E LOGO (TELA 1) */
+    .logo-container {
+        text-align: center;
+        padding-top: 10px;
         margin-bottom: 20px;
     }
-    
-    /* Estilo para Títulos dentro dos Cards */
-    .career-title {
-        color: #FFFFFF !important;
-        font-size: 22px !important;
-        font-weight: bold !important;
-        margin-bottom: 5px !important;
+    .logo-text {
+        font-size: 32px;
+        font-weight: 800;
+        color: #3A7CA5; 
+        font-family: 'Arial', sans-serif;
     }
-    
-    /* Estilo para Descrições */
-    .career-description {
-        color: #DEDEDE !important;
-        font-size: 15px;
-        margin-bottom: 10px;
-        line-height: 1.4;
-    }
-
-    /* Estilo para a justificativa do perfil - Laranja claro */
-    .career-reason {
-        color: #D98880 !important;
-        font-size: 14px;
-        font-style: italic;
-        margin-top: 5px;
+    .logo-badge {
+        background: linear-gradient(90deg, #F39C12, #D35400); 
+        color: white;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        vertical-align: super;
+        margin-left: 5px;
     }
 
-    /* Estilo para os botões de Navegação (Laranja do Logo) */
-    .stButton > button {
-        background-color: #D35400;
-        color: white !important;
+    /* TELA INICIAL (HERO SECTION) */
+    .hero-title {
+        text-align: center;
+        color: #3A7CA5;
+        font-size: 22px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+    .hero-title b {
+        font-weight: 800;
+    }
+    .hero-image-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .hero-image-container img {
+        width: 100%;
+        max-width: 400px;
         border-radius: 20px;
+    }
+
+    /* ÍCONES DO RODAPÉ */
+    .feature-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .feature-icon-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        font-size: 30px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .bg-blue { background-color: #5DADE2; color: white; }
+    .bg-yellow { background-color: #F4D03F; color: white; }
+    .bg-red { background-color: #E74C3C; color: white; }
+    
+    .feature-text {
+        font-size: 14px;
+        color: #555;
+        font-weight: 600;
+    }
+
+    /* --- ESTILOS DA TELA 2 (TESTE DE PERFIL) --- */
+    .test-header-title {
+        color: #1A5276;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .test-banner {
+        background: linear-gradient(180deg, #D6EAF8, #EBF5FB);
+        color: #1A5276;
+        text-align: center;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .question-title {
+        color: #1A5276;
+        font-size: 15px;
+        font-weight: bold;
+        border-bottom: 1px solid #D4E6F1;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        margin-top: 20px;
+    }
+
+    /* ESTILO DOS BOTÕES */
+    /* Botão Primário (Comece Agora - Laranja) */
+    div.stButton > button[kind="primary"] {
+        background: linear-gradient(90deg, #F39C12, #D35400);
+        color: white;
         border: none;
+        border-radius: 30px;
+        padding: 15px 20px;
+        font-size: 22px;
+        font-weight: bold;
+        width: 100%;
+        box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
+        transition: transform 0.2s;
+    }
+    div.stButton > button[kind="primary"]:hover {
+        transform: scale(1.02);
+        color: white;
+    }
+
+    /* Botão Secundário (Continuar/Voltar - Azul Gradiente da Tela 2) */
+    div.stButton > button[kind="secondary"] {
+        background: linear-gradient(180deg, #2980B9, #1A5276);
+        color: white !important;
+        border: none;
+        border-radius: 8px; /* Borda mais quadrada conforme design */
         padding: 10px 20px;
         font-weight: bold;
-        width: 100%; /* Faz o botão ocupar a largura toda no celular */
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    .stButton > button:hover {
-        background-color: #A04000;
-        color: white !important;
+    div.stButton > button[kind="secondary"]:hover {
+        background: linear-gradient(180deg, #1A5276, #154360);
     }
+
+    /* CARDS DE RECOMENDAÇÃO (TELA 3) */
+    .result-card {
+        background-color: white;
+        border: 2px solid #E5E7E9;
+        border-left: 6px solid #D35400;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .career-title { color: #2C3E50 !important; font-size: 22px !important; font-weight: 800 !important; margin-bottom: 5px !important; }
+    .career-description { color: #555555 !important; font-size: 15px; margin-bottom: 10px; }
+    .career-reason { background-color: #FDF2E9; padding: 10px; border-radius: 8px; color: #D35400 !important; font-size: 14px; font-style: italic; margin-top: 10px; }
+    
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASE DE DADOS DE CARREIRAS (Com justificativas dinâmicas e detalhadas) ---
+# --- BASE DE DADOS DE CARREIRAS ---
 career_database = [
     {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Programador de Softwares', 'description': 'Crie aplicativos e sistemas de alta tecnologia.', 'reason': 'Com seu interesse em tecnologia e formação acadêmica avançada, você possui a base ideal para criar lógicas complexas e inovar no mercado digital.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop'}},
-    
     {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Dados Júnior', 'description': 'Comece na área de dados transformando números em decisões.', 'reason': 'Você tem afinidade com tecnologia e está no momento perfeito para iniciar uma trilha técnica muito requisitada pelas empresas.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop'}},
-    
     {'interests': ['Negócios'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Gestor de Projetos', 'description': 'Lidere equipes e gerencie negócios de sucesso.', 'reason': 'Seu foco em negócios demonstra um perfil de liderança e visão estratégica, essencial para gerenciar processos e pessoas.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=400&auto=format&fit=crop'}},
-    
     {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Designer Criativo', 'description': 'Projete interfaces e experiências visuais inovadoras.', 'reason': 'Sua escolha por artes indica alta criatividade e empatia visual, habilidades chave para se destacar no mercado criativo.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop'}},
-    
-    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Especialista em Saúde', 'description': 'Atue no cuidado e bem-estar em áreas clínicas.', 'reason': 'O interesse em saúde e sua formação superior refletem sua dedicação técnica e vocação para o cuidado humano.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842s?q=80&w=400&auto=format&fit=crop'}},
-    
+    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Especialista em Saúde', 'description': 'Atue no cuidado e bem-estar em áreas clínicas.', 'reason': 'O interesse em saúde e sua formação superior refletem sua dedicação técnica e vocação para o cuidado humano.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=400&auto=format&fit=crop'}},
     {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Pesquisador em Saúde', 'description': 'Desenvolva soluções avançadas para a área médica.', 'reason': 'Sua pós-graduação aliada à saúde te coloca em uma posição de destaque para pesquisas e inovações científicas.', 'image': 'https://images.unsplash.com/photo-1584447128309-b66b7a14890c?q=80&w=400&auto=format&fit=crop'}}
 ]
 
 def get_career_recommendation(selected_interests, selected_education):
-    # Lógica de recomendação com base nas regras do especialista. Devolve todas as carreiras correspondentes.
     possible_careers = []
     for option in career_database:
         if any(interest in option['interests'] for interest in selected_interests) and selected_education in option['education']:
             possible_careers.append(option['career'])
-    
     if possible_careers:
         return possible_careers 
     else:
-        # Perfil de Empreendedor/Inovador como padrão para perfis versáteis
         return [{'title': 'Empreendedor Inovador', 'description': 'Crie seu próprio caminho unindo diferentes áreas do conhecimento.', 'reason': 'Seu perfil é versátil e não se prende a padrões! Essa combinação única te dá a base para empreender e inovar.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400&auto=format&fit=crop'}]
 
-# --- FUNÇÕES DE PÁGINA ---
+# --- TELA 1: LANDING PAGE ---
+def show_landing_page():
+    st.markdown("""
+        <div class="logo-container">
+            <span class="logo-text">AprendaJá</span><span class="logo-badge">PRO</span>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("<h2 class='hero-title'><b>Seu Caminho</b> para o Sucesso Profissional</h2>", unsafe_allow_html=True)
+    
+    st.markdown("""
+        <div class="hero-image-container">
+            <img src="https://img.freepik.com/free-vector/team-work-concept-landing-page_52683-20165.jpg?w=800&t=st=1708450000~exp=1708450600~hmac=abcd123" alt="Estudantes trabalhando">
+        </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("Comece Agora", type="primary"):
+        st.session_state.page = 'test'
+        st.rerun()
+        
+    st.write("") 
+    st.write("")
+    
+    feat_col1, feat_col2, feat_col3 = st.columns(3)
+    with feat_col1:
+        st.markdown("<div class='feature-container'><div class='feature-icon-circle bg-blue'>👤</div><div class='feature-text'>✓ Teste de Perfil</div></div>", unsafe_allow_html=True)
+    with feat_col2:
+        st.markdown("<div class='feature-container'><div class='feature-icon-circle bg-yellow'>📋</div><div class='feature-text'>✓ Trilhas Personalizadas</div></div>", unsafe_allow_html=True)
+    with feat_col3:
+        st.markdown("<div class='feature-container'><div class='feature-icon-circle bg-red'>🎓</div><div class='feature-text'>✓ Dicas de Carreira</div></div>", unsafe_allow_html=True)
 
+# --- TELA 2: FORMULÁRIO DE TESTE (DESIGN IDÊNTICO À FOTO) ---
 def show_profile_test_page():
-    # Cabeçalho com o logo e título (Design Réplica)
-    st.markdown("## AprendaJá **PRO** 🎯")
-    st.divider()
-    st.markdown("### Nos ajude a conhecer você melhor.")
+    # Cabeçalho com botão Voltar embutido e Título
+    col_back, col_title, col_empty = st.columns([1, 6, 1])
+    with col_back:
+        if st.button("‹", type="secondary"):
+            st.session_state.page = 'landing'
+            st.rerun()
+    with col_title:
+        st.markdown("<div class='test-header-title'>Teste de Perfil Profissional</div>", unsafe_allow_html=True)
+
+    # Banner Azul Claro
+    st.markdown("<div class='test-banner'>Nos ajude a conhecer você melhor.</div>", unsafe_allow_html=True)
     
-    # Campo de Nome com validação
-    name = st.text_input("Qual seu nome?")
+    # Campo de Nome com separador
+    st.markdown("<div class='question-title'>Qual o seu nome?</div>", unsafe_allow_html=True)
+    name = st.text_input("", placeholder="Digite seu nome...", label_visibility="collapsed")
     
-    st.write("Quais são seus principais interesses?")
-    
-    # Grid responsivo 2x2 para celular com ícones embutidos (Design Otimizado)
+    # Checkboxes sem emojis
+    st.markdown("<div class='question-title'>Quais são seus principais interesses?</div>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        tech_check = st.checkbox("💻 Tecnologia")
-        health_check = st.checkbox("🩺 Saúde")
+        tech_check = st.checkbox("Tecnologia")
+        health_check = st.checkbox("Saúde")
     with col2:
-        biz_check = st.checkbox("🤝 Negócios")
-        design_check = st.checkbox("🎨 Artes & Design")
+        biz_check = st.checkbox("Negócios")
+        design_check = st.checkbox("Artes & Design")
     
     selected_interests = []
     if tech_check: selected_interests.append("Tecnologia")
@@ -145,84 +279,85 @@ def show_profile_test_page():
     if health_check: selected_interests.append("Saúde")
     if design_check: selected_interests.append("Artes & Design")
         
-    st.write("Qual seu nível de escolaridade?")
+    # Radio Buttons sem emojis
+    st.markdown("<div class='question-title'>Qual seu nível de escolaridade?</div>", unsafe_allow_html=True)
     education_options = {
-        "📖 Ensino Médio": "Ensino Médio",
-        "🎓 Ensino Superior": "Ensino Superior",
-        "🏅 Pós-Graduação": "Pós-Graduação"
+        "Ensino Médio": "Ensino Médio",
+        "Ensino Superior": "Ensino Superior",
+        "Pós-Graduação": "Pós-Graduação"
     }
-    selected_education_label = st.radio("Escolha uma opção:", list(education_options.keys()), label_visibility="collapsed")
+    selected_education_label = st.radio("", list(education_options.keys()), label_visibility="collapsed")
     selected_education = education_options[selected_education_label]
     
-    st.write("") # Espaço em branco para respirar o layout
+    st.write("") 
+    st.write("")
     
-    # Botão de Validação e Sálvamento (Laranja do Logo)
-    if st.button("Continuar"):
+    # Botão Azul Gradiente (Secondary)
+    if st.button("Continuar", type="secondary"):
         if not name.strip():
             st.warning("⚠️ Por favor, digite seu nome antes de continuar.")
         elif len(selected_interests) == 0:
-            st.warning("⚠️ Por favor, escolha pelo menos um interesse (Tecnologia, Negócios, Saúde ou Artes).")
+            st.warning("⚠️ Por favor, escolha pelo menos um interesse.")
         else:
-            # Se passou na validação, sálva os dados e gera a recomendação
             st.session_state.user_name = name
             st.session_state.recommended_careers = get_career_recommendation(selected_interests, selected_education)
-            
-            # Salva o cadastro no banco de dados CSV
             if st.session_state.recommended_careers:
                  salvar_recomendacao(name, selected_interests, selected_education, st.session_state.recommended_careers[0]['title'])
-                 
-            # Navega para a tela de resultados
             st.session_state.page = 'results'
-            st.rerun() # Força a tela a atualizar imediatamente
+            st.rerun()
 
+# --- TELA 3: RESULTADOS ---
 def show_results_page():
-    # Cabeçalho com o logo
-    st.markdown("## AprendaJá **PRO** 🎯")
+    st.markdown("""
+        <div class="logo-container" style="text-align: left; padding-top: 0;">
+            <span class="logo-text" style="font-size: 24px;">AprendaJá</span><span class="logo-badge" style="font-size: 14px;">PRO</span>
+        </div>
+    """, unsafe_allow_html=True)
     
-    st.title("Suas Recomendações")
-    # Subheader dinâmico com o nome do usuário
-    st.subheader(f"Escolhas alinhadas ao seu perfil, {st.session_state.user_name}!")
-    
+    st.markdown("<h2 style='color: #2C3E50;'>Suas Recomendações</h2>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #555; font-size: 16px;'>Escolhas alinhadas ao seu perfil, <b>{st.session_state.user_name}</b>!</p>", unsafe_allow_html=True)
     st.divider()
 
-    # Loop para gerar os cards de resultado em um grid de 2 colunas
     for i in range(0, len(st.session_state.recommended_careers), 2):
         card_col1, card_col2 = st.columns(2)
         
-        # Exibe o primeiro card na linha (Design Réplica com borda laranja)
         if i < len(st.session_state.recommended_careers):
             career = st.session_state.recommended_careers[i]
-            with card_col1.container():
-                # O layout responsivo embutido no container funciona perfeito no celular
-                st.image(career['image'], use_column_width=True)
-                st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
+            with card_col1:
+                st.markdown(f"""
+                <div class="result-card">
+                    <img src="{career['image']}" style="width:100%; border-radius:10px; margin-bottom:15px;">
+                    <div class="career-title">{career['title']}</div>
+                    <div class="career-description">{career['description']}</div>
+                    <div class="career-reason">💡 <b>Por que combina?</b><br>{career['reason']}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
-        # Exibe o segundo card na linha (se houver)
         if i+1 < len(st.session_state.recommended_careers):
             career = st.session_state.recommended_careers[i+1]
-            with card_col2.container():
-                st.image(career['image'], use_column_width=True)
-                st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
+            with card_col2:
+                st.markdown(f"""
+                <div class="result-card">
+                    <img src="{career['image']}" style="width:100%; border-radius:10px; margin-bottom:15px;">
+                    <div class="career-title">{career['title']}</div>
+                    <div class="career-description">{career['description']}</div>
+                    <div class="career-reason">💡 <b>Por que combina?</b><br>{career['reason']}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
-    # Após exibir todas as recomendações, adiciona um divisor e o botão no final
-    st.divider()
-    # Botão "Voltar ao Teste" no final (Design Réplica)
-    if st.button("Voltar para o Teste"): 
+    st.write("")
+    if st.button("Voltar para o Teste", type="secondary"): 
         st.session_state.page = 'test'
         st.rerun()
 
-# --- FLUXO PRINCIPAL DO APP ---
-# O 'if' controla qual função de página será exibida na tela
-if st.session_state.page == 'test':
+# --- GERENCIADOR DE ROTAS ---
+if st.session_state.page == 'landing':
+    show_landing_page()
+elif st.session_state.page == 'test':
     show_profile_test_page()
 elif st.session_state.page == 'results':
     show_results_page()
 
-# Seção escondida (Modo Administrador) para o professor ver que o banco de dados CSV funciona
 st.divider()
 if st.checkbox("⚙️ Modo Administrador: Ver Banco de Dados (CSV)"):
     df = carregar_dados()
