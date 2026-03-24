@@ -1,6 +1,0 @@
-[theme]
-primaryColor = "#A32E2E"       # O Vinho/Bordô do design
-backgroundColor = "#1A1A1D"   # Fundo Escuro
-secondaryBackgroundColor = "#2D2D31" # Fundo dos Cards
-textColor = "#FFFFFF"         # Texto Branco
-font = "sans serif"
