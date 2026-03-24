@@ -6,9 +6,14 @@ import os
 CSV_FILE = "cadastros_recomendacoes.csv"
 
 def carregar_dados():
-    # Verifica se o arquivo CSV já existe para não dar erro
+    # Verifica se o arquivo existe
     if os.path.exists(CSV_FILE):
-        return pd.read_csv(CSV_FILE, encoding='utf-8')
+        try:
+            # TENTA ler o arquivo. Se ele estiver perfeito, ótimo!
+            return pd.read_csv(CSV_FILE, encoding='utf-8')
+        except:
+            # SE DER ERRO (arquivo corrompido, vazio, zumbi), ele ignora e cria um novo!
+            return pd.DataFrame(columns=["Nome", "Interesses", "Escolaridade", "Carreira Recomendada"])
     else:
         # Se não existe, cria um DataFrame vazio com as colunas necessárias
         return pd.DataFrame(columns=["Nome", "Interesses", "Escolaridade", "Carreira Recomendada"])
