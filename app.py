@@ -6,6 +6,7 @@ import os
 CSV_FILE = "cadastros_recomendacoes.csv"
 
 def carregar_dados():
+    # Tenta carregar os dados. Se o arquivo estiver corrompido ou vazio, o try/except garante que um novo banco de dados seja criado.
     if os.path.exists(CSV_FILE):
         try:
             return pd.read_csv(CSV_FILE, encoding='utf-8')
@@ -27,7 +28,7 @@ def salvar_recomendacao(nome, interesses, escolaridade, recomendacao):
 
 # --- CONFIGURAÇÃO DA PÁGINA ---
 if 'page' not in st.session_state:
-    st.session_state.page = 'landing' 
+    st.session_state.page = 'landing' # Agora começamos na Landing Page!
 if 'recommended_careers' not in st.session_state:
     st.session_state.recommended_careers = []
 if 'user_name' not in st.session_state:
@@ -40,10 +41,10 @@ st.markdown("""
 <style>
     /* RESET BÁSICO E CORES DO TEMA GLOBAL */
     .stApp {
-        background-color: #F4F9FD; 
+        background-color: #F4F9FD; /* Fundo azul bem clarinho como na foto */
     }
     
-    /* CABEÇALHO E LOGO (TELA 1) */
+    /* CABEÇALHO E LOGO */
     .logo-container {
         text-align: center;
         padding-top: 10px;
@@ -52,11 +53,11 @@ st.markdown("""
     .logo-text {
         font-size: 32px;
         font-weight: 800;
-        color: #3A7CA5; 
+        color: #3A7CA5; /* Azul do logo */
         font-family: 'Arial', sans-serif;
     }
     .logo-badge {
-        background: linear-gradient(90deg, #F39C12, #D35400); 
+        background: linear-gradient(90deg, #F39C12, #D35400); /* Gradiente Laranja */
         color: white;
         padding: 4px 10px;
         border-radius: 8px;
@@ -66,7 +67,7 @@ st.markdown("""
         margin-left: 5px;
     }
 
-    /* TELA INICIAL (HERO SECTION) */
+    /* --- TELA 1 (REFINAMENTOS FOTO 1) --- */
     .hero-title {
         text-align: center;
         color: #3A7CA5;
@@ -88,206 +89,102 @@ st.markdown("""
         border-radius: 20px;
     }
 
-    /* ÍCONES DO RODAPÉ (TELA 1) */
-    .feature-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .feature-icon-circle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        font-size: 30px;
-        margin-bottom: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .bg-blue { background-color: #5DADE2; color: white; }
-    .bg-yellow { background-color: #F4D03F; color: white; }
-    .bg-red { background-color: #E74C3C; color: white; }
-    .feature-text { font-size: 14px; color: #555; font-weight: 600; }
-
-    /* ESTILOS DA TELA 2 (TESTE DE PERFIL) */
-    .test-header-title {
-        color: #1A5276;
-        font-size: 18px;
-        font-style: italic;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 10px;
-    }
-    .test-banner {
-        background: linear-gradient(180deg, #D6EAF8, #EBF5FB);
-        color: #1A5276;
-        text-align: center;
-        padding: 15px;
-        font-size: 16px;
-        font-weight: 500;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-    .question-title {
-        color: #1A5276;
-        font-size: 15px;
-        font-weight: bold;
-        border-bottom: 1px solid #D4E6F1;
-        padding-bottom: 5px;
-        margin-bottom: 15px;
-        margin-top: 20px;
-    }
-
-    /* ESTILO DOS BOTÕES NATIVOS DO STREAMLIT */
+    /* BOTÃO PRIMÁRIO (COMECE AGORA - CENTRALIZADO E MENOR) */
     div.stButton > button[kind="primary"] {
         background: linear-gradient(90deg, #F39C12, #D35400);
         color: white;
         border: none;
         border-radius: 30px;
-        padding: 15px 20px;
-        font-size: 22px;
+        padding: 12px 15px; /* Reduzi padding */
+        font-size: 20px; /* Reduzi font-size */
         font-weight: bold;
-        width: 100%;
+        width: 60%; /* Reduzi largura */
+        margin: 0 auto; /* Centralizado */
+        display: block; /* Essencial para margin-auto funcionar */
         box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
         transition: transform 0.2s;
     }
-    div.stButton > button[kind="primary"]:hover { transform: scale(1.02); color: white; }
+    div.stButton > button[kind="primary"]:hover {
+        transform: scale(1.02);
+        color: white;
+    }
 
+    /* REFINAMENTOS FEATURE ICONS (UM LINHA, MENOR) */
+    .flex-features-container {
+        display: flex;
+        justify-content: space-around; /* Distribuição uniforme */
+        align-items: center; /* Alinhamento vertical central */
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+    .flex-feature-item {
+        text-align: center;
+        display: flex;
+        align-items: center; /* Alinhamento ícone e texto na mesma linha */
+    }
+    .feature-icon-circle-small {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px; /* Reduzi tamanho */
+        height: 45px; /* Reduzi tamanho */
+        border-radius: 50%;
+        font-size: 20px; /* Reduzi font-size */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-right: 8px; /* Espaço entre ícone e texto */
+    }
+    /* Cores individuais dos círculos pequenos */
+    .bg-blue-small { background-color: #5DADE2; color: white; }
+    .bg-yellow-small { background-color: #F4D03F; color: white; }
+    .bg-red-small { background-color: #E74C3C; color: white; }
+    
+    .feature-text-small {
+        font-size: 13px; /* Reduzi font-size */
+        color: #555;
+        font-weight: 600;
+        white-space: nowrap; /* Impede quebra de linha do texto curto */
+    }
+
+    /* --- ESTILOS DAS OUTRAS TELAS (MANTER) --- */
     div.stButton > button[kind="secondary"] {
-        background: linear-gradient(180deg, #2980B9, #1A5276);
-        color: white !important;
+        background-color: #2C3E50;
+        color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 20px;
         padding: 10px 20px;
         font-weight: bold;
         width: 100%;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    div.stButton > button[kind="secondary"]:hover { background: linear-gradient(180deg, #1A5276, #154360); }
+    div.stButton > button[kind="secondary"]:hover {
+        background-color: #1A252F;
+        color: white;
+    }
 
-    /* --- ESTILOS DA TELA 3 (RESULTADOS REFINADOS) --- */
-    .top-menu-icon {
-        text-align: right;
-        font-size: 28px;
-        color: #2980B9;
-        margin-bottom: -10px;
-    }
-    .results-header {
-        text-align: center;
-        margin-bottom: 25px;
-    }
-    .results-title {
-        color: #1A5276;
-        font-size: 24px;
-        font-weight: 800;
-        margin-bottom: 5px;
-    }
-    .results-subtitle {
-        color: #3A7CA5;
-        font-size: 14px;
-        font-style: italic;
-    }
-    .results-subtitle span { color: #D4E6F1; margin: 0 5px; }
-
-    /* Card Flexbox (Imagem lado a lado com texto) */
-    .rec-card {
-        background: white;
+    .result-card {
+        background-color: white;
+        border: 2px solid #E5E7E9;
+        border-left: 6px solid #D35400; 
         border-radius: 15px;
-        padding: 15px;
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.06);
+        padding: 20px;
         margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
-    .rec-card-top {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-    .rec-card-img {
-        width: 80px;
-        height: 80px;
-        border-radius: 10px;
-        object-fit: cover;
-        margin-right: 15px;
-        box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-    }
-    .rec-card-text {
-        flex: 1;
-    }
-    .rec-card-title {
-        color: #1A5276;
-        font-size: 17px;
-        font-weight: 800;
-        margin-bottom: 3px;
-        line-height: 1.2;
-    }
-    .rec-card-desc {
-        color: #555;
-        font-size: 13px;
-        line-height: 1.3;
-    }
-    .rec-card-reason {
-        color: #2980B9;
-        font-size: 12px;
-        font-style: italic;
-        margin-top: 5px;
-    }
-    .rec-card-btn {
-        background: linear-gradient(180deg, #2980B9, #1A5276);
-        color: white;
-        text-align: center;
-        padding: 10px;
-        border-radius: 8px;
-        font-weight: bold;
-        font-size: 15px;
-        box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
-    }
-
-    /* Rodapé da Tela 3 */
-    .footer-nav-container {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-        border-top: 2px solid #EBF5FB;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    .footer-nav-item {
-        text-align: center;
-        width: 32%;
-    }
-    .footer-nav-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        color: white;
-        margin: 0 auto 8px auto;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-    .footer-nav-text {
-        font-size: 11px;
-        color: #1A5276;
-        font-weight: bold;
-        line-height: 1.1;
-    }
-    .icon-green { background: linear-gradient(180deg, #48C9B0, #17A589); }
-    .icon-orange { background: linear-gradient(180deg, #F39C12, #D35400); }
-    .icon-blue { background: linear-gradient(180deg, #2980B9, #1A5276); }
+    .career-title { color: #2C3E50 !important; font-size: 22px !important; font-weight: 800 !important; margin-bottom: 5px !important; }
+    .career-description { color: #555555 !important; font-size: 15px; margin-bottom: 10px; }
+    .career-reason { background-color: #FDF2E9; padding: 10px; border-radius: 8px; color: #D35400 !important; font-size: 14px; font-style: italic; margin-top: 10px; }
     
 </style>
 """, unsafe_allow_html=True)
 
 # --- BASE DE DADOS DE CARREIRAS ---
+# ... (manter o mesmo banco de dados) ...
 career_database = [
-    {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Desenvolvedor de Software', 'description': 'Trilha de Programação Completa', 'reason': 'Ideal para seu perfil analítico e foco em tecnologia avançada.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop'}},
-    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Suporte em TI', 'description': 'Iniciação à Infraestrutura e Redes', 'reason': 'Ótimo ponto de partida técnico para sua afinidade com tecnologia.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop'}},
-    {'interests': ['Negócios'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Marketing Digital', 'description': 'Curso de Estratégia & Mídias Sociais', 'reason': 'Combina perfeitamente com sua visão de negócios e comunicação.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=400&auto=format&fit=crop'}},
-    {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Design Gráfico UX/UI', 'description': 'Criação de Interfaces e Experiências', 'reason': 'Sua criatividade será fundamental para inovar nesta área.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop'}},
-    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Gestão em Saúde', 'description': 'Administração de Clínicas e Hospitais', 'reason': 'Une o cuidado da saúde com a visão gerencial moderna.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=400&auto=format&fit=crop'}},
-    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Pesquisa Científica', 'description': 'Inovação em Tratamentos Médicos', 'reason': 'Sua formação avançada permite atuar na linha de frente da ciência.', 'image': 'https://images.unsplash.com/photo-1584447128309-b66b7a14890c?q=80&w=400&auto=format&fit=crop'}}
+    {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Programador de Softwares', 'description': 'Crie aplicativos e sistemas de alta tecnologia.', 'reason': 'Com seu interesse em tecnologia e formação acadêmica avançada, você possui a base ideal para criar lógicas complexas e inovar no mercado digital.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop'}},
+    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Dados Júnior', 'description': 'Comece na área de dados transformando números em decisões.', 'reason': 'Você tem afinidade com tecnologia e está no momento perfeito para iniciar uma trilha técnica muito requisitada pelas empresas.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop'}},
+    {'interests': ['Negócios'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Gestor de Projetos', 'description': 'Lidere equipes e gerencie negócios de sucesso.', 'reason': 'Seu foco em negócios demonstra um perfil de liderança e visão estratégica, essencial para gerenciar processos e pessoas.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=400&auto=format&fit=crop'}},
+    {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Designer Criativo', 'description': 'Projete interfaces e experiências visuais inovadoras.', 'reason': 'Sua escolha por artes indica alta criatividade e empatia visual, habilidades chave para se destacar no mercado criativo.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop'}},
+    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Especialista em Saúde', 'description': 'Atue no cuidado e bem-estar em áreas clínicas.', 'reason': 'O interesse em saúde e sua formação superior refletem sua dedicação técnica e vocação para o cuidado humano.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=400&auto=format&fit=crop'}},
+    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Pesquisador em Saúde', 'description': 'Desenvolva soluções avançadas para a área médica.', 'reason': 'Sua pós-graduação aliada à saúde te coloca em uma posição de destaque para pesquisas e inovações científicas.', 'image': 'https://images.unsplash.com/photo-1584447128309-b66b7a14890c?q=80&w=400&auto=format&fit=crop'}}
 ]
 
 def get_career_recommendation(selected_interests, selected_education):
@@ -298,58 +195,80 @@ def get_career_recommendation(selected_interests, selected_education):
     if possible_careers:
         return possible_careers 
     else:
-        return [{'title': 'Empreendedor Inovador', 'description': 'Gestão de Negócios e Startups', 'reason': 'Perfil versátil que se adapta a múltiplas frentes de mercado.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400&auto=format&fit=crop'}]
+        return [{'title': 'Empreendedor Inovador', 'description': 'Crie seu próprio caminho unindo diferentes áreas do conhecimento.', 'reason': 'Seu perfil é versátil e não se prende a padrões! Essa combinação única te dá a base para empreender e inovar.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400&auto=format&fit=crop'}]
 
-# --- TELA 1: LANDING PAGE ---
+# --- TELA 1: LANDING PAGE (REFINADA) ---
 def show_landing_page():
+    # Logo
     st.markdown("""
         <div class="logo-container">
             <span class="logo-text">AprendaJá</span><span class="logo-badge">PRO</span>
         </div>
     """, unsafe_allow_html=True)
+    
+    # Título Principal
     st.markdown("<h2 class='hero-title'><b>Seu Caminho</b> para o Sucesso Profissional</h2>", unsafe_allow_html=True)
+    
+    # Imagem Hero (Ilustração vetorial)
     st.markdown("""
         <div class="hero-image-container">
-            <img src="https://img.freepik.com/free-vector/team-work-concept-landing-page_52683-20165.jpg?w=800&t=st=1708450000~exp=1708450600~hmac=abcd123" alt="Estudantes">
+            <img src="https://img.freepik.com/free-vector/team-work-concept-landing-page_52683-20165.jpg?w=800&t=st=1708450000~exp=1708450600~hmac=abcd123" alt="Estudantes trabalhando">
         </div>
     """, unsafe_allow_html=True)
     
-    if st.button("Comece Agora", type="primary"):
-        st.session_state.page = 'test'
-        st.rerun()
+    # Botão "Comece Agora" - NATIVO, CENTRALIZADO VIA CSS OVERSIDES
+    # Chamo a função st.button em um container vazio para depois centralizar
+    # st.button tem o tipo "primary" que eu estilizei acima
+    with st.container():
+        if st.button("Comece Agora", type="primary"):
+            st.session_state.page = 'test'
+            st.rerun()
         
-    st.write("") 
-    feat_col1, feat_col2, feat_col3 = st.columns(3)
-    with feat_col1:
-        st.markdown("<div class='feature-container'><div class='feature-icon-circle bg-blue'>👤</div><div class='feature-text'>✓ Teste de Perfil</div></div>", unsafe_allow_html=True)
-    with feat_col2:
-        st.markdown("<div class='feature-container'><div class='feature-icon-circle bg-yellow'>📋</div><div class='feature-text'>✓ Trilhas Personalizadas</div></div>", unsafe_allow_html=True)
-    with feat_col3:
-        st.markdown("<div class='feature-container'><div class='feature-icon-circle bg-red'>🎓</div><div class='feature-text'>✓ Dicas de Carreira</div></div>", unsafe_allow_html=True)
+    st.write("") # Espaço
+    st.write("")
+    
+    # --- REVISÃO FEATURE ICONS (UMA LINHA, MENOR) ---
+    # Removi st.columns(3). Usei HTML Flexbox puro.
+    # O HTML abaixo cria uma linha com os três ícones menores lado a lado.
+    
+    st.markdown("""
+        <div class="flex-features-container">
+            <div class="flex-feature-item">
+                <div class="feature-icon-circle-small bg-blue-small">👤</div>
+                <div class="feature-text-small">✓ Teste de Perfil</div>
+            </div>
+            <div class="flex-feature-item">
+                <div class="feature-icon-circle-small bg-yellow-small">📋</div>
+                <div class="feature-text-small">✓ Trilhas Personalizadas</div>
+            </div>
+            <div class="flex-feature-item">
+                <div class="feature-icon-circle-small bg-red-small">🎓</div>
+                <div class="feature-text-small">✓ Dicas de Carreira</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 # --- TELA 2: FORMULÁRIO DE TESTE ---
+# ... (manter o mesmo código das telas 2 e 3) ...
 def show_profile_test_page():
-    col_back, col_title, col_empty = st.columns([1, 6, 1])
-    with col_back:
-        if st.button("‹", type="secondary"):
-            st.session_state.page = 'landing'
-            st.rerun()
-    with col_title:
-        st.markdown("<div class='test-header-title'>Teste de Perfil Profissional</div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='test-banner'>Nos ajude a conhecer você melhor.</div>", unsafe_allow_html=True)
+    st.markdown("""
+        <div class="logo-container" style="text-align: left; padding-top: 0;">
+            <span class="logo-text" style="font-size: 24px;">AprendaJá</span><span class="logo-badge" style="font-size: 14px;">PRO</span>
+        </div>
+    """, unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #2C3E50;'>Nos ajude a conhecer você melhor.</h3>", unsafe_allow_html=True)
+    st.divider()
     
-    st.markdown("<div class='question-title'>Qual o seu nome?</div>", unsafe_allow_html=True)
-    name = st.text_input("", placeholder="Digite seu nome...", label_visibility="collapsed")
+    name = st.text_input("Qual seu nome?")
+    st.write("Quais são seus principais interesses?")
     
-    st.markdown("<div class='question-title'>Quais são seus principais interesses?</div>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        tech_check = st.checkbox("Tecnologia")
-        health_check = st.checkbox("Saúde")
+        tech_check = st.checkbox("💻 Tecnologia")
+        health_check = st.checkbox("🩺 Saúde")
     with col2:
-        biz_check = st.checkbox("Negócios")
-        design_check = st.checkbox("Artes & Design")
+        biz_check = st.checkbox("🤝 Negócios")
+        design_check = st.checkbox("🎨 Artes & Design")
     
     selected_interests = []
     if tech_check: selected_interests.append("Tecnologia")
@@ -357,16 +276,17 @@ def show_profile_test_page():
     if health_check: selected_interests.append("Saúde")
     if design_check: selected_interests.append("Artes & Design")
         
-    st.markdown("<div class='question-title'>Qual seu nível de escolaridade?</div>", unsafe_allow_html=True)
+    st.write("Qual seu nível de escolaridade?")
     education_options = {
-        "Ensino Médio": "Ensino Médio",
-        "Ensino Superior": "Ensino Superior",
-        "Pós-Graduação": "Pós-Graduação"
+        "📖 Ensino Médio": "Ensino Médio",
+        "🎓 Ensino Superior": "Ensino Superior",
+        "🏅 Pós-Graduação": "Pós-Graduação"
     }
-    selected_education_label = st.radio("", list(education_options.keys()), label_visibility="collapsed")
+    selected_education_label = st.radio("Escolha uma opção:", list(education_options.keys()), label_visibility="collapsed")
     selected_education = education_options[selected_education_label]
     
     st.write("") 
+    
     if st.button("Continuar", type="secondary"):
         if not name.strip():
             st.warning("⚠️ Por favor, digite seu nome antes de continuar.")
@@ -380,52 +300,45 @@ def show_profile_test_page():
             st.session_state.page = 'results'
             st.rerun()
 
-# --- TELA 3: RESULTADOS (NOVO DESIGN) ---
+# --- TELA 3: RESULTADOS ---
+# ... (manter o mesmo código das telas 2 e 3) ...
 def show_results_page():
-    # Ícone Menu Hambúrguer (Apenas Visual)
-    st.markdown("<div class='top-menu-icon'>≡</div>", unsafe_allow_html=True)
+    st.markdown("""
+        <div class="logo-container" style="text-align: left; padding-top: 0;">
+            <span class="logo-text" style="font-size: 24px;">AprendaJá</span><span class="logo-badge" style="font-size: 14px;">PRO</span>
+        </div>
+    """, unsafe_allow_html=True)
     
-    # Cabeçalho da Tela 3
-    st.markdown("""
-        <div class="results-header">
-            <div class="results-title">Suas Recomendações de Carreira</div>
-            <div class="results-subtitle"><span>—</span> Escolhas alinhadas ao seu perfil! <span>—</span></div>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #2C3E50;'>Suas Recomendações</h2>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #555; font-size: 16px;'>Escolhas alinhadas ao seu perfil, <b>{st.session_state.user_name}</b>!</p>", unsafe_allow_html=True)
+    st.divider()
 
-    # Renderiza os Cards Dinamicamente usando Flexbox
-    for career in st.session_state.recommended_careers:
-        st.markdown(f"""
-        <div class="rec-card">
-            <div class="rec-card-top">
-                <img src="{career['image']}" class="rec-card-img">
-                <div class="rec-card-text">
-                    <div class="rec-card-title">{career['title']}</div>
-                    <div class="rec-card-desc">{career['description']}</div>
-                    <div class="rec-card-reason">{career['reason']}</div>
+    for i in range(0, len(st.session_state.recommended_careers), 2):
+        card_col1, card_col2 = st.columns(2)
+        
+        if i < len(st.session_state.recommended_careers):
+            career = st.session_state.recommended_careers[i]
+            with card_col1:
+                st.markdown(f"""
+                <div class="result-card">
+                    <img src="{career['image']}" style="width:100%; border-radius:10px; margin-bottom:15px;">
+                    <div class="career-title">{career['title']}</div>
+                    <div class="career-description">{career['description']}</div>
+                    <div class="career-reason">💡 <b>Por que combina?</b><br>{career['reason']}</div>
                 </div>
-            </div>
-            <div class="rec-card-btn">Saiba Mais</div>
-        </div>
-        """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
 
-    # Rodapé com 3 Ícones
-    st.markdown("""
-        <div class="footer-nav-container">
-            <div class="footer-nav-item">
-                <div class="footer-nav-icon icon-green">🏆</div>
-                <div class="footer-nav-text">Cursos<br>Recomendados</div>
-            </div>
-            <div class="footer-nav-item">
-                <div class="footer-nav-icon icon-orange">⚙️</div>
-                <div class="footer-nav-text">Habilidades<br>em Alta</div>
-            </div>
-            <div class="footer-nav-item">
-                <div class="footer-nav-icon icon-blue">👤</div>
-                <div class="footer-nav-text">Dicas de<br>Empregabilidade</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+        if i+1 < len(st.session_state.recommended_careers):
+            career = st.session_state.recommended_careers[i+1]
+            with card_col2:
+                st.markdown(f"""
+                <div class="result-card">
+                    <img src="{career['image']}" style="width:100%; border-radius:10px; margin-bottom:15px;">
+                    <div class="career-title">{career['title']}</div>
+                    <div class="career-description">{career['description']}</div>
+                    <div class="career-reason">💡 <b>Por que combina?</b><br>{career['reason']}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
     st.write("")
     if st.button("Voltar para o Teste", type="secondary"): 
