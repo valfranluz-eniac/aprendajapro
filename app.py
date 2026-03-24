@@ -77,11 +77,11 @@ st.markdown("""
     }
     .test-header-title { 
         color: #1A5276; 
-        font-size: 28px; /* Aumentado conforme pedido */
+        font-size: 28px; 
         font-style: italic; 
         font-weight: bold; 
         text-align: center; 
-        margin-top: -15px; /* Reposicionado para cima */
+        margin-top: -15px; 
         margin-bottom: 15px; 
     }
     .test-banner { 
@@ -94,23 +94,30 @@ st.markdown("""
         margin-bottom: 25px; 
     }
 
-    /* BOTÃO ESTILO PÍLULA LARANJA (CENTRALIZADO) */
+    /* --- AJUSTE DE CENTRALIZAÇÃO DOS BOTÕES --- */
+    .stButton {
+        display: flex;
+        justify-content: center;
+    }
+
     div.stButton > button {
         background: linear-gradient(90deg, #F39C12, #D35400) !important;
         color: white !important;
         border: none !important;
         border-radius: 35px !important;
-        padding: 12px 50px !important; 
+        padding: 12px 60px !important; 
         font-size: 20px !important; 
         font-weight: bold !important;
-        display: block !important;
-        margin: 25px auto !important; /* Força centralização */
         box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4) !important;
         transition: transform 0.2s !important;
-        min-width: 280px !important;
+        width: auto !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
     }
+    
     div.stButton > button:hover {
         transform: scale(1.05) !important;
+        color: white !important;
     }
 
     /* FORMULÁRIO */
