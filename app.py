@@ -43,26 +43,35 @@ st.markdown("""
         border: 2px solid #A32E2E;
         border-radius: 15px;
         padding: 20px;
-        background-color: #2D2D31; /* Fundo escuro do card sempre fixo */
+        background-color: #2D2D31;
         margin-bottom: 20px;
     }
     
     /* Estilo para Títulos dentro dos Cards */
     .career-title {
-        color: #FFFFFF !important; /* Texto SEMPRE branco no card */
+        color: #FFFFFF !important;
         font-size: 24px !important;
         font-weight: bold !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 5px !important;
     }
     
     /* Estilo para Descrições */
     .career-description {
-        color: #FFFFFF !important; /* Texto SEMPRE branco no card */
-        font-size: 16px;
+        color: #DEDEDE !important;
+        font-size: 15px;
         margin-bottom: 15px;
+        line-height: 1.4;
     }
 
-    /* Estilo para os botões de Saiba Mais (Vinho) */
+    /* Estilo para a justificativa do perfil */
+    .career-reason {
+        color: #FF8A8A !important;
+        font-size: 14px;
+        font-style: italic;
+        margin-top: 5px;
+    }
+
+    /* Estilo para os botões de Navegação (Vinho) */
     .stButton > button {
         background-color: #A32E2E;
         color: white !important;
@@ -86,56 +95,44 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASE DE DADOS DE CARREIRAS (Com links de imagem REAIS e PÚBLICOS) ---
+# --- BASE DE DADOS DE CARREIRAS ---
 career_database = [
-    # Tecnologia - Superior/Pós
-    {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Programador de Softwares', 'description': 'Crie aplicativos e sistemas de alta tecnologia.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop'}},
-    # Tecnologia - Médio
-    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Dados Júnior', 'description': 'Comece na área de dados transformando números em decisões.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop'}},
-    # Negócios - Superior
-    {'interests': ['Negócios'], 'education': ['Ensino Superior'], 'career': {'title': 'Gerente de Produto (PM)', 'description': 'Lance e gerencie seu próprio produto ou negócio.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=400&auto=format&fit=crop'}},
-    # Artes - Superior/Pós
-    {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'UX/UI Designer Sênior', 'description': 'Projete interfaces digitais intuitivas e inovadoras.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop'}},
-    # Saúde - Superior
-    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Enfermeiro de UTI', 'description': 'Atue em uma área médica crítica e de alta demanda.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=400&auto=format&fit=crop'}},
-    # Saúde - Pós
-    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Médico Especialista', 'description': 'Torne-se referência em sua área médica.', 'image': 'https://images.unsplash.com/photo-1584447128309-b66b7a14890c?q=80&w=400&auto=format&fit=crop'}}
+    {'interests': ['Tecnologia'], 'education': ['Ensino Superior', 'Pós-Graduação'], 'career': {'title': 'Programador de Softwares', 'description': 'Crie aplicativos e sistemas de alta tecnologia.', 'reason': 'Com seu interesse em tecnologia e formação acadêmica avançada, você possui a base ideal para criar lógicas complexas e inovar no mercado digital.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop'}},
+    
+    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Dados Júnior', 'description': 'Comece na área de dados transformando números em decisões.', 'reason': 'Você tem afinidade com tecnologia e está no momento perfeito para iniciar uma trilha técnica muito requisitada pelas empresas.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop'}},
+    
+    {'interests': ['Negócios'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Gestor de Projetos', 'description': 'Lidere equipes e gerencie negócios de sucesso.', 'reason': 'Seu foco em negócios demonstra um perfil de liderança e visão estratégica, essencial para gerenciar processos e pessoas.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=400&auto=format&fit=crop'}},
+    
+    {'interests': ['Artes & Design'], 'education': ['Ensino Superior', 'Pós-Graduação', 'Ensino Médio'], 'career': {'title': 'Designer Criativo', 'description': 'Projete interfaces e experiências visuais inovadoras.', 'reason': 'Sua escolha por artes indica alta criatividade e empatia visual, habilidades chave para se destacar no mercado criativo.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop'}},
+    
+    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Especialista em Saúde', 'description': 'Atue no cuidado e bem-estar em áreas clínicas.', 'reason': 'O interesse em saúde e sua formação superior refletem sua dedicação técnica e vocação para o cuidado humano.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=400&auto=format&fit=crop'}},
+    
+    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Pesquisador em Saúde', 'description': 'Desenvolva soluções avançadas para a área médica.', 'reason': 'Sua pós-graduação aliada à saúde te coloca em uma posição de destaque para pesquisas e inovações científicas.', 'image': 'https://images.unsplash.com/photo-1584447128309-b66b7a14890c?q=80&w=400&auto=format&fit=crop'}}
 ]
 
-# Função que gera a recomendação com base nas regras do especialista
 def get_career_recommendation(selected_interests, selected_education):
-    if not selected_interests or not selected_education:
-        return [{'title': 'Orientador de Carreiras Geral', 'description': 'Poxa, você não escolheu nada!', 'image': 'https://images.unsplash.com/photo-1593062096033-9a26b09dd705?q=80&w=400&auto=format&fit=crop'}]
-        
     possible_careers = []
-    # Percorre o banco de dados de regras
     for option in career_database:
-        # Se houver UM interesse correspondente E a escolaridade bater, é uma opção!
         if any(interest in option['interests'] for interest in selected_interests) and selected_education in option['education']:
             possible_careers.append(option['career'])
     
-    # Se não houver correspondência, damos um perfil versátil
     if possible_careers:
-        return possible_careers # Devolve a lista completa de correspondências
+        return possible_careers 
     else:
-        return [{'title': 'Empreendedor Geral', 'description': 'Um perfil versátil! Vamos conversar mais sobre sua trilha.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400&auto=format&fit=crop'}]
+        return [{'title': 'Empreendedor Inovador', 'description': 'Crie seu próprio caminho unindo diferentes áreas do conhecimento.', 'reason': 'Seu perfil é versátil e não se prende a padrões! Essa combinação única te dá a base para empreender e inovar.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?q=80&w=400&auto=format&fit=crop'}]
 
-# --- FUNÇÕES DE PÁGINA (Réplicas do Design) ---
+# --- FUNÇÕES DE PÁGINA ---
 
 def show_profile_test_page():
-    # Navegação e Título
     st.markdown("## AprendaJá **PRO** 🎯")
     st.divider()
     st.markdown("## Perfil Profissional: Nos ajude a conhecer você melhor.")
     
-    # Cadastro de nome
     name = st.text_input("Qual seu nome?")
     
     st.write("Quais são seus principais interesses?")
-    # Layout de Colunas para os Interesses (Grid 4x1)
     int_col1, int_col2, int_col3, int_col4 = st.columns(4)
     
-    # Cards de Interesse (simulando bordas)
     with int_col1:
         st.markdown("<span class='interest-icon'>💻</span>", unsafe_allow_html=True)
         tech_check = st.checkbox("Tecnologia")
@@ -164,54 +161,62 @@ def show_profile_test_page():
     selected_education_label = st.radio("Escolha uma opção:", list(education_options.keys()))
     selected_education = education_options[selected_education_label]
     
-    # Botão principal (Vinho)
+    # Validação do formulário
     if st.button("Continuar"):
-        st.session_state.user_name = name
-        st.session_state.recommended_careers = get_career_recommendation(selected_interests, selected_education)
-        # Salva o cadastro no banco de dados CSV
-        if st.session_state.recommended_careers:
-             salvar_recomendacao(name, selected_interests, selected_education, st.session_state.recommended_careers[0]['title'])
-        st.session_state.page = 'results'
+        if not name.strip():
+            st.warning("⚠️ Por favor, digite seu nome antes de continuar.")
+        elif len(selected_interests) == 0:
+            st.warning("⚠️ Por favor, escolha pelo menos um interesse (Tecnologia, Negócios, Saúde ou Artes).")
+        else:
+            # Se passou na validação, avança!
+            st.session_state.user_name = name
+            st.session_state.recommended_careers = get_career_recommendation(selected_interests, selected_education)
+            
+            if st.session_state.recommended_careers:
+                 salvar_recomendacao(name, selected_interests, selected_education, st.session_state.recommended_careers[0]['title'])
+                 
+            st.session_state.page = 'results'
+            st.rerun() # Força a tela a atualizar imediatamente
 
 def show_results_page():
-    # Navegação e Título
     st.markdown("## AprendaJá **PRO** 🎯")
-    if st.button("< Voltar para o Teste"): 
+    
+    # Removido o <
+    if st.button("Voltar para o Teste"): 
         st.session_state.page = 'test'
+        st.rerun()
         
     st.title("Suas Recomendações de Carreira")
-    st.subheader("Escolhas alinhadas ao seu perfil!")
+    st.subheader(f"Escolhas alinhadas ao seu perfil, {st.session_state.user_name}!")
     
     st.divider()
 
-    # Gerar os cards com base nas recomendações do especialista
     for i in range(0, len(st.session_state.recommended_careers), 2):
-        # Cria uma linha de 2 colunas
         card_col1, card_col2 = st.columns(2)
         
-        # Primeiro Card da linha
         if i < len(st.session_state.recommended_careers):
             career = st.session_state.recommended_careers[i]
             with card_col1.container():
                 inner_col1, inner_col2 = st.columns([1, 2])
                 with inner_col1:
-                    st.image(career['image'], width=100)
+                    st.image(career['image'], use_column_width=True)
                 with inner_col2:
                     st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
                     st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                    st.button(f"Saiba Mais", key=f"know_more_{i}")
+                    st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
+                    # Botão Saiba Mais removido daqui
 
-        # Segundo Card da linha (se houver)
         if i+1 < len(st.session_state.recommended_careers):
             career = st.session_state.recommended_careers[i+1]
             with card_col2.container():
                 inner_col1, inner_col2 = st.columns([1, 2])
                 with inner_col1:
-                    st.image(career['image'], width=100)
+                    st.image(career['image'], use_column_width=True)
                 with inner_col2:
                     st.markdown(f"<p class='career-title'>{career['title']}</p>", unsafe_allow_html=True)
                     st.markdown(f"<p class='career-description'>{career['description']}</p>", unsafe_allow_html=True)
-                    st.button(f"Saiba Mais", key=f"know_more_{i+1}")
+                    st.markdown(f"<p class='career-reason'>💡 <b>Por que combina?</b><br>{career['reason']}</p>", unsafe_allow_html=True)
+                    # Botão Saiba Mais removido daqui
 
 # --- FLUXO PRINCIPAL DO APP ---
 if st.session_state.page == 'test':
@@ -219,7 +224,6 @@ if st.session_state.page == 'test':
 elif st.session_state.page == 'results':
     show_results_page()
 
-# Seção escondida (Modo Administrador) para o professor ver que o banco funciona
 st.divider()
 if st.checkbox("⚙️ Modo Administrador: Ver Banco de Dados (CSV)"):
     df = carregar_dados()
