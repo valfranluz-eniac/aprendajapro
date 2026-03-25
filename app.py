@@ -92,41 +92,41 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- BASE DE DATA DE CARREIRAS (LINKS OTIMIZADOS E GARANTIDOS) ---
+# --- BASE DE DATA DE CARREIRAS (TODA MIGRADA PARA PEXELS 100% ESTÁVEL) ---
 career_database = [
     # SAÚDE
-    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Pesquisador Científico Médico', 'description': 'Inovação e Estudos Clínicos', 'reason': 'Sua especialização permite atuar na vanguarda da ciência médica.', 'image': 'https://images.unsplash.com/photo-1532187863486-abf9db09e412?auto=format&fit=crop&w=400&q=80'}}, 
-    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Especialista Clínico', 'description': 'Atendimento e Cuidado Direto', 'reason': 'Aplica seus conhecimentos superiores no cuidado direto aos pacientes.', 'image': 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Saúde'], 'education': ['Ensino Médio'], 'career': {'title': 'Técnico em Enfermagem', 'description': 'Apoio Fundamental em Saúde', 'reason': 'Excelente porta de entrada para uma carreira dedicada a salvar vidas.', 'image': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Saúde'], 'education': ['Pós-Graduação'], 'career': {'title': 'Pesquisador Científico Médico', 'description': 'Inovação e Estudos Clínicos', 'reason': 'Sua especialização permite atuar na vanguarda da ciência médica.', 'image': 'https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=400'}}, 
+    {'interests': ['Saúde'], 'education': ['Ensino Superior'], 'career': {'title': 'Especialista Clínico', 'description': 'Atendimento e Cuidado Direto', 'reason': 'Aplica seus conhecimentos superiores no cuidado direto aos pacientes.', 'image': 'https://images.pexels.com/photos/4056815/pexels-photo-4056815.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Saúde'], 'education': ['Ensino Médio'], 'career': {'title': 'Técnico em Enfermagem', 'description': 'Apoio Fundamental em Saúde', 'reason': 'Excelente porta de entrada para uma carreira dedicada a salvar vidas.', 'image': 'https://images.pexels.com/photos/3376790/pexels-photo-3376790.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
     # TECNOLOGIA
-    {'interests': ['Tecnologia'], 'education': ['Pós-Graduação'], 'career': {'title': 'Cientista de Dados (IA)', 'description': 'Modelagem e Machine Learning', 'reason': 'Ideal para liderar o futuro com análises e algoritmos complexos.', 'image': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Tecnologia'], 'education': ['Ensino Superior'], 'career': {'title': 'Engenheiro de Software', 'description': 'Criação de Sistemas e Apps', 'reason': 'Sua afinidade tecnológica tem a base perfeita para construir softwares.', 'image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Suporte de TI', 'description': 'Manutenção de Redes e Sistemas', 'reason': 'Ótima posição prática para iniciar no mercado tech.', 'image': 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Tecnologia'], 'education': ['Pós-Graduação'], 'career': {'title': 'Cientista de Dados (IA)', 'description': 'Modelagem e Machine Learning', 'reason': 'Ideal para liderar o futuro com análises e algoritmos complexos.', 'image': 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Tecnologia'], 'education': ['Ensino Superior'], 'career': {'title': 'Engenheiro de Software', 'description': 'Criação de Sistemas e Apps', 'reason': 'Sua afinidade tecnológica tem a base perfeita para construir softwares.', 'image': 'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Tecnologia'], 'education': ['Ensino Médio'], 'career': {'title': 'Analista de Suporte de TI', 'description': 'Manutenção de Redes e Sistemas', 'reason': 'Ótima posição prática para iniciar no mercado tech.', 'image': 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
     # NEGÓCIOS
-    {'interests': ['Negócios'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Consultor Estratégico', 'description': 'Gestão e Planejamento Corporativo', 'reason': 'Perfil focado em liderança e tomadas de decisão de alto impacto.', 'image': 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Negócios'], 'education': ['Ensino Médio'], 'career': {'title': 'Empreendedor / Comercial', 'description': 'Vendas e Novos Negócios', 'reason': 'Sua visão de negócios permite crescer rápido na área comercial.', 'image': 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Negócios'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Consultor Estratégico', 'description': 'Gestão e Planejamento Corporativo', 'reason': 'Perfil focado em liderança e tomadas de decisão de alto impacto.', 'image': 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Negócios'], 'education': ['Ensino Médio'], 'career': {'title': 'Empreendedor / Comercial', 'description': 'Vendas e Novos Negócios', 'reason': 'Sua visão de negócios permite crescer rápido na área comercial.', 'image': 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
     # ARTES & DESIGN
-    {'interests': ['Artes & Design'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Designer de Produto (UX/UI)', 'description': 'Experiência do Usuário e Visual', 'reason': 'Une sua criatividade com metodologias de design avançadas.', 'image': 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Artes & Design'], 'education': ['Ensino Médio'], 'career': {'title': 'Assistente de Criação', 'description': 'Edição e Produção Visual', 'reason': 'Perfeito para exercitar habilidades criativas e portfólio prático.', 'image': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Artes & Design'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Designer de Produto (UX/UI)', 'description': 'Experiência do Usuário e Visual', 'reason': 'Une sua criatividade com metodologias de design avançadas.', 'image': 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Artes & Design'], 'education': ['Ensino Médio'], 'career': {'title': 'Assistente de Criação', 'description': 'Edição e Produção Visual', 'reason': 'Perfeito para exercitar habilidades criativas e portfólio prático.', 'image': 'https://images.pexels.com/photos/1111369/pexels-photo-1111369.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
     # ENGENHARIA
-    {'interests': ['Engenharia'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Engenheiro de Projetos', 'description': 'Infraestrutura e Planejamento', 'reason': 'Mente focada em estruturação e cálculos de alta complexidade.', 'image': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Engenharia'], 'education': ['Ensino Médio'], 'career': {'title': 'Técnico em Mecatrônica', 'description': 'Automação e Processos', 'reason': 'Habilidade prática essencial para a indústria 4.0.', 'image': 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Engenharia'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Engenheiro de Projetos', 'description': 'Infraestrutura e Planejamento', 'reason': 'Mente focada em estruturação e cálculos de alta complexidade.', 'image': 'https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Engenharia'], 'education': ['Ensino Médio'], 'career': {'title': 'Técnico em Mecatrônica', 'description': 'Automação e Processos', 'reason': 'Habilidade prática essencial para a indústria 4.0.', 'image': 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
     # COMUNICAÇÃO
-    {'interests': ['Comunicação'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Diretor de Comunicação e RP', 'description': 'Estratégia de Imagem e Marca', 'reason': 'Sua facilidade de articulação é fundamental para conectar marcas e público.', 'image': 'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Comunicação'], 'education': ['Ensino Médio'], 'career': {'title': 'Social Media Júnior', 'description': 'Gestão de Redes Sociais', 'reason': 'Uso inteligente das mídias para gerar engajamento.', 'image': 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Comunicação'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Diretor de Comunicação e RP', 'description': 'Estratégia de Imagem e Marca', 'reason': 'Sua facilidade de articulação é fundamental para conectar marcas e público.', 'image': 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Comunicação'], 'education': ['Ensino Médio'], 'career': {'title': 'Social Media Júnior', 'description': 'Gestão de Redes Sociais', 'reason': 'Uso inteligente das mídias para gerar engajamento.', 'image': 'https://images.pexels.com/photos/267399/pexels-photo-267399.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
     # EDUCAÇÃO
-    {'interests': ['Educação'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Docente e Pedagogo', 'description': 'Ensino e Coordenação Acadêmica', 'reason': 'Missão focada no desenvolvimento humano e transferência de conhecimento.', 'image': 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Educação'], 'education': ['Ensino Médio'], 'career': {'title': 'Auxiliar de Desenvolvimento', 'description': 'Apoio em Treinamentos', 'reason': 'Oportunidade prática de iniciar no ambiente de aprendizado e suporte.', 'image': 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80'}},
+    {'interests': ['Educação'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Docente e Pedagogo', 'description': 'Ensino e Coordenação Acadêmica', 'reason': 'Missão focada no desenvolvimento humano e transferência de conhecimento.', 'image': 'https://images.pexels.com/photos/256455/pexels-photo-256455.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Educação'], 'education': ['Ensino Médio'], 'career': {'title': 'Auxiliar de Desenvolvimento', 'description': 'Apoio em Treinamentos', 'reason': 'Oportunidade prática de iniciar no ambiente de aprendizado e suporte.', 'image': 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=400'}},
 
-    # MEIO AMBIENTE (LINK CORRIGIDO AQUI)
-    {'interests': ['Meio Ambiente'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Engenheiro Ambiental', 'description': 'Sustentabilidade e Gestão Ecológica', 'reason': 'Seu interesse se alinha com as urgências globais de sustentabilidade corporativa.', 'image': 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=400&q=80'}},
-    {'interests': ['Meio Ambiente'], 'education': ['Ensino Médio'], 'career': {'title': 'Técnico Agrícola / Ambiental', 'description': 'Ações em Campo e Conservação', 'reason': 'Atuação direta e essencial com o meio ambiente e agro.', 'image': 'https://images.unsplash.com/photo-1416879873375-fa82512f4316?auto=format&fit=crop&w=400&q=80'}}
+    # MEIO AMBIENTE
+    {'interests': ['Meio Ambiente'], 'education': ['Pós-Graduação', 'Ensino Superior'], 'career': {'title': 'Engenheiro Ambiental', 'description': 'Sustentabilidade e Gestão Ecológica', 'reason': 'Seu interesse se alinha com as urgências globais de sustentabilidade corporativa.', 'image': 'https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg?auto=compress&cs=tinysrgb&w=400'}},
+    {'interests': ['Meio Ambiente'], 'education': ['Ensino Médio'], 'career': {'title': 'Técnico Agrícola / Ambiental', 'description': 'Ações em Campo e Conservação', 'reason': 'Atuação direta e essencial com o meio ambiente e agro.', 'image': 'https://images.pexels.com/photos/2132227/pexels-photo-2132227.jpeg?auto=compress&cs=tinysrgb&w=400'}}
 ]
 
 def get_career_recommendation(selected_interests, selected_education):
@@ -138,8 +138,8 @@ def get_career_recommendation(selected_interests, selected_education):
     if matches:
         return matches
     else:
-        # Fallback de segurança com imagem garantida
-        return [{'title': 'Empreendedor Inovador', 'description': 'Gestão de Novos Negócios', 'reason': 'Perfil versátil e adaptável a diversos cenários.', 'image': 'https://images.unsplash.com/photo-1542744094-3a31f2f31d4d?auto=format&fit=crop&w=400&q=80'}]
+        # Fallback de segurança com imagem garantida Pexels
+        return [{'title': 'Empreendedor Inovador', 'description': 'Gestão de Novos Negócios', 'reason': 'Perfil versátil e adaptável a diversos cenários.', 'image': 'https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=400'}]
 
 # --- TELA 1: LANDING PAGE ---
 def show_landing_page():
@@ -215,11 +215,11 @@ def show_results_page():
     st.markdown(f"<div class='test-header-title' style='margin-top:20px;'>Resultados para {st.session_state.user_name}</div>", unsafe_allow_html=True)
     st.markdown("<div class='results-header'>Baseado no seu perfil, aqui estão as melhores opções:</div>", unsafe_allow_html=True)
 
-    # LOOP DE CARDS COM BLINDAGEM ONERROR (Imagem de Segurança)
+    # REMOVIDO O ONERROR (O STREAMLIT BLOQUEIA). IMAGENS PEXELS GARANTIDAS.
     for career in st.session_state.recommended_careers:
         st.markdown(f"""
         <div class="rec-card">
-            <img src="{career['image']}" class="rec-card-img" onerror="this.onerror=null; this.src='https://img.freepik.com/free-vector/team-work-concept-landing-page_52683-20165.jpg?w=400';">
+            <img src="{career['image']}" class="rec-card-img">
             <div>
                 <div class="rec-card-title">{career['title']}</div>
                 <div class="rec-card-desc">{career['description']}</div>
